@@ -13,10 +13,11 @@
 <body>
 	<form>
 		<!-- Line breaks removed because it's going into Wordpress -->
-		<label for="mode">Mode</label><select id="mode" name="mode"><option value="e100" selected>Edding pens, 100 cells per colour</option><option value="e10">Edding pens, 10 cells per colour</option><option value="i100">Ideal RGB colours, out of 100</option><option value="g255">Ideal RGB colours, with gamma, out of 255</option></select>
-		<label for="red"><input id="red" name="red" type="number" value="0">
-		<label for="green"><input id="green" name="green" type="number" value="0">
-		<label for="blue"><input id="blue" name="blue" type="number" value="0">
+		<label for="mode">Mode</label><select id="mode" name="mode"><option value="e100" selected>Edding pens, 100 cells per colour (Megapixel)</option><option value="e10">Edding pens, 10 cells per colour (Minimegapixel)</option><option value="i100">Ideal RGB colours, out of 100 (Ideal Megapixel)</option><option value="g255">Ideal RGB colours, with gamma, out of 255 (Computer monitor)</option></select>
+		<p id="mode-blurb"></p>
+		<label for="red">Red</label><input id="red" name="red" type="number" value="0">
+		<label for="green">Green</label><input id="green" name="green" type="number" value="0">
+		<label for="blue">Blue</label><input id="blue" name="blue" type="number" value="0">
 		<div id="swatch"></div>
 	</form>
 	<script type="text/javascript" src="script.js"></script>

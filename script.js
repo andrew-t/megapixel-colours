@@ -13,20 +13,28 @@ inputs.forEach(function(el) {
 });
 document
 	.getElementById('mode')
-	.addEventListener('change', function(e) {
-		var max = parseInt(
-					document
-						.getElementById('mode')
-						.value
-						.substr(1));
-		if (max != oldMax)
-			inputs.forEach(function(el) {
-				el.value = Math.round(el.value * max / oldMax);
-			});
-		updateSwatch(e);
-	});
+	.addEventListener('change', updateAll);
 
-updateSwatch();
+updateAll();
+
+function updateAll(e) {
+	var mode = document
+				.getElementById('mode')
+				.value,
+		max = parseInt(mode.substr(1));
+	if (max != oldMax)
+		inputs.forEach(function(el) {
+			el.value = Math.round(el.value * max / oldMax);
+		});
+	document
+		.getElementById('mode-blurb')
+		.innerHTML = {
+			e: 'In this mode, the shades of red, green and blue are taken from the Edding pens used for the Megapixel, and so there are some colours which your monitor can display, but which cannot be made, for example, a brighter green than the green pen.',
+			i: 'In this mode, the red, green and blue channels of your display are used directly, however we remove the brightness correction, so values of 50% should look half as bright as values of 100%',
+			g: 'In this mode, the red, green and blue channels of your display are used directly, including the brightness correction normally applied. Therefore, values of 128/255 (which should be about 50%) look rather darker than a true 50% brightness. Displays do this because your eye is better at distinguishing dark shades than light ones, so more of the data in an image goes towards storing dark shades. Usually this correction is applied by the computer before the image is sent to the screen, therefore the image we are using for the Megapixel has had it applied already, before any colouring is done.'
+		}[mode[0]];
+	updateSwatch(e);
+}
 
 function updateSwatch(e) {
 	if (e)
@@ -44,6 +52,11 @@ function updateSwatch(e) {
 	inputs.forEach(function(el) {
 		el.maximum = max;
 		el.minimum = 0;
+		el.step = {
+			'10': 1,
+			'100': 10,
+			'255': 25
+		}[max.toString()];
 		if (el.value > max)
 			el.value = max;
 		if (el.value < 0)
